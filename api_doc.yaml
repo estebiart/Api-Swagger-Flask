@@ -1,0 +1,110 @@
+openapi: 3.0.0
+info:
+  title: Swagger API Python
+  description: Python Swagger api
+  version: 0.1.9
+servers:
+  - url: 'https://jsonplaceholder.typicode.com/'
+    description:  server description
+components:
+  schemas:
+    Posts:
+      $ref: 'https://jsonplaceholder.typicode.com/posts/'
+
+paths:
+  /posts:
+    get:
+      summary: Returns a list of posts.
+      description: get post
+      responses:
+        '200':    # status code
+          description: A JSON array of user posts
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+    post:
+      summary: Creates a post.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username: 
+                  type: string
+      responses: 
+        '201':
+          description: Created
+  /posts/{postId}:
+    get:
+      summary: Returns a post by ID.
+      parameters:
+        - name: postId
+          in: path
+          required: true
+          description: Parameter description in CommonMark or HTML.
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses: 
+        '200':
+          description: OK
+    delete:
+      summary: Delete orderdays by id
+      parameters:
+          - in: path
+            name: postId
+            required: true
+            description: Numeric ID required
+            schema:
+              type: integer
+      responses:
+        '204':
+          description: Deleted
+        '404':
+          description: id not found
+        '401':
+          description: Unauthorized
+    put:
+      description: Updated Successfully
+      parameters:
+    
+          - in: path
+            name: postId
+            required: true
+            description: Numeric ID required
+            schema:
+              type: integer 
+      requestBody:
+            required: true
+            content:
+                application/json:
+                    schema:
+                      $ref: '#/components/schemas/Posts'
+      responses:
+          '200':
+            description: Updated Successfully
+            content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/Posts'
+
+  /posts/1/comments:
+    get:
+      summary: Returns a list of comments of posts.
+      description: get post
+      responses:
+        '200':    # status code
+          description: A JSON array of user comments
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+
